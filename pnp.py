@@ -20,10 +20,10 @@ phi = CellVariable(name="$\phi$", mesh=mesh, hasOld=True)
 viewer = Viewer((Cp, Cn, phi), limits={"ymax":5, "ymin":-5})
 
 # Initial
-# Cn.setValue(1)
-# Cp.setValue(1.5)
-Cn.setValue(2*numerix.exp(-(x-Lx/2)**2))
-Cp.setValue(2*numerix.exp(-(x-Lx/2)**2))
+Cn.setValue(0.5*(1+10*numerix.random.rand(len(x))))
+Cp.setValue(0.5*(1+10*numerix.random.rand(len(x))))
+# Cn.setValue(2*numerix.exp(-(x-Lx/2)**2))
+# Cp.setValue(2*numerix.exp(-(x-Lx/2)**2))
 phi.setValue(x)
 
 # Boundry
