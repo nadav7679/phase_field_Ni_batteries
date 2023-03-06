@@ -8,6 +8,6 @@ p = sol(:, :, 1);
 n = sol(:, :, 2);
 phi = sol(:, :, 3);
 
-surf(x, t, n)
+surf(x, t, p)
 xlabel("Distance x")
 ylabel("Time t")

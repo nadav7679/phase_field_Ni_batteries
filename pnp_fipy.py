@@ -20,22 +20,26 @@ phi = CellVariable(name="$\phi$", mesh=mesh, hasOld=True)
 viewer = Viewer((Cp, Cn, phi), limits={"ymax":5, "ymin":-5})
 
 # Initial
-Cn.setValue(0.5*(1+10*numerix.random.rand(len(x))))
-Cp.setValue(0.5*(1+10*numerix.random.rand(len(x))))
+Cn.setValue(0.5)
+Cp.setValue(0.5)
 # Cn.setValue(2*numerix.exp(-(x-Lx/2)**2))
 # Cp.setValue(2*numerix.exp(-(x-Lx/2)**2))
-phi.setValue(x)
+# phi.setValue(x)
 
 # Boundry
-Cp.faceGrad.constrain(0, mesh.facesRight)
-Cp.faceGrad.constrain(0, mesh.facesLeft)
-Cn.faceGrad.constrain(0, mesh.facesRight)
-Cn.faceGrad.constrain(0, mesh.facesLeft)
-phi.constrain(4, mesh.facesRight)
-phi.constrain(-4, mesh.facesLeft)
+phi.constrain(1, mesh.facesRight)
+phi.constrain(-1, mesh.facesLeft)
 
+Cp.faceGrad.constrain([-Cp.faceValue*phi.faceGrad], mesh.facesRight)
+Cp.faceGrad.constrain([-Cp.faceValue*phi.faceGrad], mesh.facesLeft)
+
+Cn.faceGrad.constrain([Cn.faceValue*phi.faceGrad], mesh.facesRight)
+Cn.faceGrad.constrain([Cn.faceValue*phi.faceGrad], mesh.facesLeft)
 
 # Equations
+# internal_coeff = 
+# p_boundary_condition = Cp.faceValue*phi.faceGrad.faceValue
+
 Cp_diff_eq = TransientTerm(coeff=1, var=Cp) == DiffusionTerm(coeff=D, var=Cp) + DiffusionTerm(coeff=D*Cp, var=phi)
 Cn_diff_eq = TransientTerm(coeff=1, var=Cn) == DiffusionTerm(coeff=D, var=Cn) - DiffusionTerm(coeff=D*Cn, var=phi)
 poission_eq = DiffusionTerm(coeff=epsilon, var=phi) == (ImplicitSourceTerm(coeff=1, var=Cn) - ImplicitSourceTerm(coeff=1, var=Cp))
@@ -43,7 +47,7 @@ poission_eq = DiffusionTerm(coeff=epsilon, var=phi) == (ImplicitSourceTerm(coeff
 equations = poission_eq & Cp_diff_eq & Cn_diff_eq
 
 # Simulation
-timestep = 0.01
+timestep = 0.1
 time_final = 20
 desired_residual = 1e-2
 
