@@ -41,9 +41,10 @@ x = mesh.cellCenters[0]
 u.setValue(0.5, where = x > Lx/2)
 
 # Boundry
-p.constrain(0.9, mesh.facesRight)
-p.constrain(0.2, mesh.facesLeft)
-for var in [n, u, phi]:
+phi.constrain(-1, mesh.facesLeft)
+phi.constrain(-1, mesh.facesRight)
+
+for var in [n, u, p]:
     var.constrain(0, mesh.facesRight)
     var.constrain(0, mesh.facesLeft)
 
