@@ -1,16 +1,18 @@
 % Simulation
-N = 40000;
-M = 2000;
+N = 2000;
+M = 1000;
 
-t_max = 100;
-x_max = 10;
-x_min = -10;
+t_max = 200;
+x_max = 4;
+x_min = -4;
 
 x = linspace(x_min, x_max, M);
 t = linspace(0, t_max, N);
 
 % Constants
-%Du, Dp, Dn = 1 ;
+Du = 1;
+Dp = 1;
+Dn = 1;
 zeta = 1;
 epsilon = 1;
 beta = 1;
@@ -20,7 +22,7 @@ voltage = 1;
 
 % PDE's
 w_pp = @(x)84*x.^2 - 26;
-nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, zeta, epsilon, beta, lambda, gamma, w_pp);
+nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, Dp, zeta, epsilon, beta, lambda, gamma, w_pp);
 
 % IC
 phi_ic = @(x) voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
@@ -45,7 +47,8 @@ n = sol(:, :, 3);
 u = sol(:, :, 4);
 psi = sol(:, :, 5);
 
-
+plot(x, u(1, :), DisplayName="initial")
+hold on;
 plot(x, u(N, :), DisplayName="final")
 legend()
 
