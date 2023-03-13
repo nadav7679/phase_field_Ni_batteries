@@ -47,10 +47,33 @@ n = sol(:, :, 3);
 u = sol(:, :, 4);
 psi = sol(:, :, 5);
 
-plot(x, u(1, :), DisplayName="initial")
-hold on;
-plot(x, u(N, :), DisplayName="final")
+%animation
+figure()
+grid()
+title("Nickel Hydroxide steady state")
+xlabel("x")
+ylim([-1.1, 1.1])
 legend()
+hold on;
+
+for i=1:N
+
+  p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)")  
+  p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_n(x)")  
+  p_p = plot(x, p(i, :), Color="red", LineStyle="--", DisplayName="C_p(x)")
+  
+  pause(0.1/i)
+  delete(p_u)
+  delete(p_n)
+  delete(p_p)
+end
+
+% plot(x, u(1, :), DisplayName="initial")
+% hold on;
+% plot(x, u(N, :), DisplayName="final")
+% legend()
+
+% Animate
 
 
 %hold on;
