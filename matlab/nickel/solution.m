@@ -1,10 +1,10 @@
 % Simulation
-N = 2000;
-M = 1000;
+N = 1000;
+M = 200;
 
-t_max = 200;
-x_max = 4;
-x_min = -4;
+t_max = 100;
+x_max = 10;
+x_min = -10;
 
 x = linspace(x_min, x_max, M);
 t = linspace(0, t_max, N);
@@ -25,12 +25,12 @@ w_pp = @(x)84*x.^2 - 26;
 nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, Dp, zeta, epsilon, beta, lambda, gamma, w_pp);
 
 % IC
-phi_ic = @(x) voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
-p_ic = @(x) 0.5;
-n_ic = @(x) 0.5;
+phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
+p_ic = @(x) 0.1;
+n_ic = @(x) 0.1;
 
-u_ic = @(x) tanh(5*x);
-psi_ic = @(x) -50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
+u_ic = @(x) 0.8*tanh(5*x);
+psi_ic = @(x) -0.8*50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
 
 pdeic = @(x) expanded_pdeic(x, phi_ic, p_ic, n_ic, u_ic, psi_ic);
 
@@ -52,20 +52,22 @@ figure()
 grid()
 title("Nickel Hydroxide steady state")
 xlabel("x")
-ylim([-1.1, 1.1])
+ylim([-1.1, 2.5])
 legend()
 hold on;
 
 for i=1:N
 
-  p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)")  
-  p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_n(x)")  
-  p_p = plot(x, p(i, :), Color="red", LineStyle="--", DisplayName="C_p(x)")
+  p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
+  p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
+  p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_e(x)");
+  p_p = plot(x, p(i, :), Color="red", LineStyle="--", DisplayName="C_p(x)");
   
   pause(0.1/i)
   delete(p_u)
   delete(p_n)
   delete(p_p)
+  delete(p_phi)
 end
 
 % plot(x, u(1, :), DisplayName="initial")

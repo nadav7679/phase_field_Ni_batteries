@@ -17,6 +17,6 @@ psi_flux = dudx(4);
 
 c = [0; 1; 1; 1; 0];
 f = [poisson_flux; Dp*p_flux; Dn*n_flux; Du*u_flux; psi_flux];
-s = [u(3)-u(2); -gamma.*u(2).*u(3); -gamma.*u(2).*u(3); 0; -u(5)];
+s = [u(2)-u(3); 0; 0; 0; -u(5)];
 
 end
