@@ -2,7 +2,7 @@
 N = 1000;
 M = 200;
 
-t_max = 100;
+t_max = 50;
 x_max = 10;
 x_min = -10;
 
@@ -26,8 +26,8 @@ nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, Dp, zet
 
 % IC
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
-p_ic = @(x) 0.1;
-n_ic = @(x) 0.1;
+p_ic = @(x) 0.4;
+n_ic = @(x) 0.4;
 
 u_ic = @(x) 0.8*tanh(5*x);
 psi_ic = @(x) -0.8*50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
@@ -63,7 +63,7 @@ for i=1:N
   p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_e(x)");
   p_p = plot(x, p(i, :), Color="red", LineStyle="--", DisplayName="C_p(x)");
   
-  pause(0.1/i)
+  pause(0.1)
   delete(p_u)
   delete(p_n)
   delete(p_p)
