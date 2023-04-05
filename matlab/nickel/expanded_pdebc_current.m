@@ -1,10 +1,10 @@
 function [pl, ql, pr, qr] = expanded_pdebc_current(xl, ul, xr, ur, t, voltage)
-% ul and ur are vactors of (phi, p, n, u, psi)
+% ul and ur are vactors of (phi, n, u, psi)
 
-pl = [ul(1)-voltage; 0; 0; 0; ul(5)];
-ql = [0; 1; 1; 1; 0];
+pl = [0; 0; 0; ul(4)];
+ql = [1; 1; 1; 0];
 
-pr = [ur(1)+voltage; 0; -1; 0; ur(5)];
-qr = [0; 1; 1; 1; 0];
+pr = [0; -0.001; 0; ur(4)];
+qr = [1; 1; 1; 0];
 
 end
