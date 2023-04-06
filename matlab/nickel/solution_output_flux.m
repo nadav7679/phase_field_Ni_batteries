@@ -25,20 +25,18 @@ w_pp = @(x) 30*x.^2 - 8.8;
 nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, zeta, epsilon, beta, lambda, gamma, w_pp);
 
 % IC - start with steady state
-phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); 
-n_ic = @(x) (x > 0.5)* 0.6 ;
-u_ic = @(x) 0.9*tanh(5*(x));
-psi_ic = @(x) -0.9*(50*tanh(5*(x)).*(sech(5*(x)).^2)); % Second derivitive of tanh(3x)
+load("final_values")
+plot(x, u_end)
 
-%phi_ic = phi(end, :);
-%n_ic = n(end, :);
-%u_ic = u(end, :);
-%psi_ic = psi(end, :);
+phi_ic = @(new_x) interp1(x, phi_end, new_x);
+n_ic = @(new_x) interp1(x, n_end, new_x);
+u_ic = @(new_x) interp1(x, u_end, new_x);
+psi_ic = @(new_x) interp1(x, psi_end, new_x);
 
 pdeic = @(x) expanded_pdeic(x, phi_ic, n_ic, u_ic, psi_ic);
 
 % BC
-pdebc = @(xl, ul, xr, ur, t) expanded_pdebc_current(xl, ul, xr, ur, t, voltage);
+pdebc = @(xl, ul, xr, ur, t) expanded_pdebc_output(xl, ul, xr, ur, t, voltage);
 
 
 
@@ -78,21 +76,3 @@ for i=1:N
   end
 end
 
-
-% phi = sol(:, :, 1);
-% p = sol(:, :, 2);
-% n = sol(:, :, 3);
-% u = sol(:, :, 4);
-% psi = sol(:, :, 5);
-
-% plot(x, u(1, :), DisplayName="initial")
-% hold on;
-% plot(x, u(N, :), DisplayName="final")
-% legend()
-
-
-
-%hold on;
-%surf(x, t, u)
-xlabel("x")
-ylabel("u")
