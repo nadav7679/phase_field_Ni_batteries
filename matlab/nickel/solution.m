@@ -1,8 +1,8 @@
 % Simulation
-N = 1000;
+N = 2000;
 M = 100;
 
-t_max = 50;
+t_max = 5000;
 x_max = 10;
 x_min = -10;
 
