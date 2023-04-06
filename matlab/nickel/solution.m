@@ -13,9 +13,9 @@ t = linspace(0, t_max, N);
 Du = 1;
 Dn = 1;
 zeta = 1;
-epsilon = 1;
+epsilon = 50;
 beta = 1;
-lambda = 1;
+lambda = 3;
 gamma = 1;
 voltage = 0;
 
@@ -27,9 +27,9 @@ nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, zeta, e
 
 % IC
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
-n_ic = @(x) (x>0) * 0.2;
-u_ic = @(x) 0.8*tanh(5*x);
-psi_ic = @(x) -0.8*50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
+n_ic = @(x) (x>0) * 0.6;
+u_ic = @(x) 0.9*tanh(5*x);
+psi_ic = @(x) -0.9*50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
 
 pdeic = @(x) expanded_pdeic(x, phi_ic, n_ic, u_ic, psi_ic);
 

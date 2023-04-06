@@ -1,8 +1,8 @@
 % Simulation
-N = 1600;
+N = 1000;
 M = 100;
 
-t_max = 2000;
+t_max = 50;
 x_max = 10;
 x_min = -10;
 
@@ -11,11 +11,11 @@ t = linspace(0, t_max, N);
 
 % Constants
 Du = 1;
-Dn = 50;
+Dn = 1;
 zeta = 1;
-epsilon = 1;
+epsilon = 80;
 beta = 1;
-lambda = 1;
+lambda = 3;
 gamma = 1;
 voltage = 0;
 
@@ -25,10 +25,9 @@ nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, zeta, e
 
 % IC - start with steady state
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); 
-n_ic = @(x) (x > 0.5)* 0 ;
-
+n_ic = @(x) (x > 0.5)* 0.6 ;
 u_ic = @(x) 0.9*tanh(5*(x));
-psi_ic = @(x) 0.9*(-50*tanh(5*(x)).*(sech(5*(x)).^2)); % Second derivitive of tanh(3x)
+psi_ic = @(x) -0.9*(50*tanh(5*(x)).*(sech(5*(x)).^2)); % Second derivitive of tanh(3x)
 
 %phi_ic = phi(end, :);
 %n_ic = n(end, :);
