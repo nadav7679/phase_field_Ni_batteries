@@ -1,8 +1,9 @@
 % Simulation
-N = 1000;
+N = 2000;
 M = 100;
 
-t_max = 50;
+
+t_max = 20000;
 x_max = 10;
 x_min = -10;
 
@@ -61,16 +62,19 @@ hold on;
 for i=1:N
 
   if mod(i, 10) == 0
-
+      subplot(2, 1, 1)
       % p_u = plotyy(x, u(i, :), x, n(i, :));
       p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
-      p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
-      p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_e(x)");
+      %p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
+
+      subplot(2, 1, 2)
+      p_n = plot(x, n(i, :), "b", DisplayName="C_e");
       
+
       pause(0.01)
       delete(p_u)
       delete(p_n)
-      delete(p_phi)
+      %delete(p_phi)
   end
 end
 
