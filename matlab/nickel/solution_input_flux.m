@@ -13,7 +13,7 @@ t = linspace(0, t_max, N);
 % Constants
 Du = 1;
 Dn = 1;
-zeta = 1;
+alpha = 1;
 epsilon = 80;
 beta = 1;
 lambda = 3;
@@ -22,7 +22,7 @@ voltage = 0;
 
 % PDE's
 w_pp = @(x) 30*x.^2 - 8.8;
-nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, zeta, epsilon, beta, lambda, gamma, w_pp);
+nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, gamma, w_pp);
 
 % IC - start with steady state
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); 

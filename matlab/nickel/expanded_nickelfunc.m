@@ -1,10 +1,10 @@
-function [c, f, s] = expanded_nickelfunc(x, t, u, dudx, Du, Dn, zeta, epsilon, beta, lambda, gamma, w_pp)
+function [c, f, s] = expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, gamma, w_pp)
 % u is a vactor of (phi, n, u, psi)
 % dudx is the spatial derivitive of u
 
 v1 = 1+u(3);
 v2 = 1-u(3);
-recombination = (v2.*u(2) - v1.*(1-u(2)))/2;
+recombination = alpha*(v2.*u(2) - v1.*(1-u(2)))/2;
 
 poisson_flux = epsilon.*dudx(1);
 n_flux = dudx(2) - u(2).*dudx(1);
