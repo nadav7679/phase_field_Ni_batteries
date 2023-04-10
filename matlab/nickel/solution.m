@@ -27,7 +27,7 @@ nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, 
 
 % IC
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
-n_ic = @(x) (x>0) * 0.6;
+n_ic = @(x) (x>0) * 0.9;
 u_ic = @(x) 0.9*tanh(5*x);
 psi_ic = @(x) -0.9*50*tanh(5*x).*(sech(5*x).^2); % Second derivitive of tanh(3x)
 
@@ -72,12 +72,12 @@ colororder(["black", "blue"]);
 % Left plot
 ax1 = nexttile;
 yyaxis(ax1, 'left')
-plot(ax1, x, u(1,:), LineWidth=1, DisplayName="u(x)")
+plot(ax1, x, u(1,:), LineWidth=2, DisplayName="u(x)")
 ylim(ax1, [-1.1, 1.1])
 grid(ax1, "on")
 
 yyaxis(ax1, 'right')
-plot(ax1, x, n(1, :), LineWidth=1.2, DisplayName = "n(x)", LineStyle="--")
+plot(ax1, x, n(1, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
 ylim(ax1, [-0.1, 1.1])
 yticklabels(ax1, [])
 legend(ax1);
@@ -86,13 +86,13 @@ xlabel(ax1, "x");
 % Right plot
 ax2 = nexttile;
 yyaxis(ax2, 'left')
-plot(ax2, x, u(end,:), LineWidth=1, DisplayName="u(x)")
+plot(ax2, x, u(end,:), LineWidth=2, DisplayName="u(x)")
 ylim(ax2, [-1.1, 1.1])
 yticklabels(ax2, [])
 grid(ax2, "on")
 
 yyaxis(ax2, 'right')
-plot(ax2, x, n(end, :), LineWidth=1.2, DisplayName = "n(x)", LineStyle="--")
+plot(ax2, x, n(end, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
 ylim(ax2, [-0.1, 1.1])
 xlabel("x");
 

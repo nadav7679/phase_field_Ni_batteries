@@ -1,9 +1,9 @@
 % Simulation
-N = 2000;
-M = 100;
+N = 5000;
+M = 500;
+animate = false;
 
-
-t_max = 20000;
+t_max = 35000;
 x_max = 10;
 x_min = -10;
 
@@ -56,22 +56,54 @@ ylim([-1.1, 2.5])
 legend()
 hold on;
 
-for i=1:N
+if (animate)
+  for i=1:N
+    if mod(i, 10) == 0
+        subplot(2, 1, 1)
+        % p_u = plotyy(x, u(i, :), x, n(i, :));
+        p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
+        %p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
 
-  if mod(i, 10) == 0
-      subplot(2, 1, 1)
-      % p_u = plotyy(x, u(i, :), x, n(i, :));
-      p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
-      %p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
+        subplot(2, 1, 2)
+        p_n = plot(x, n(i, :), "b", DisplayName="C_e");
+        
 
-      subplot(2, 1, 2)
-      p_n = plot(x, n(i, :), "b", DisplayName="C_e");
-      
-
-      pause(0.01)
-      delete(p_u)
-      delete(p_n)
-      %delete(p_phi)
+        pause(0.01)
+        delete(p_u)
+        delete(p_n)
+        %delete(p_phi)
+    end
   end
 end
+
+
+tiledlayout(1,2)
+colororder(["black", "blue"]);
+
+% Left plot
+ax1 = nexttile;
+yyaxis(ax1, 'left')
+plot(ax1, x, u(1,:), LineWidth=2, DisplayName="u(x)")
+ylim(ax1, [-1.1, 1.1])
+grid(ax1, "on")
+
+yyaxis(ax1, 'right')
+plot(ax1, x, n(1, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
+ylim(ax1, [-0.1, 1.1])
+yticklabels(ax1, [])
+legend(ax1);
+xlabel(ax1, "x");
+
+% Right plot
+ax2 = nexttile;
+yyaxis(ax2, 'left')
+plot(ax2, x, u(end,:), LineWidth=2, DisplayName="u(x)")
+ylim(ax2, [-1.1, 1.1])
+yticklabels(ax2, [])
+grid(ax2, "on")
+
+yyaxis(ax2, 'right')
+plot(ax2, x, n(end, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
+ylim(ax2, [-0.1, 1.1])
+xlabel("x");
 
