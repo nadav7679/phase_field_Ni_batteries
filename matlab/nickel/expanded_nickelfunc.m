@@ -1,4 +1,4 @@
-function [c, f, s] = expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, gamma, w_pp)
+function [c, f, s] = expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, w_pp)
 % u is a vactor of (phi, n, u, psi)
 % dudx is the spatial derivitive of u
 

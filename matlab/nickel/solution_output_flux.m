@@ -14,15 +14,14 @@ t = linspace(0, t_max, N);
 Du = 1;
 Dn = 1;
 alpha = 1;
-epsilon = 80;
+epsilon = 50;
 beta = 1;
 lambda = 3;
-gamma = 1;
 voltage = 0;
 
 % PDE's
 w_pp = @(x) 30*x.^2 - 8.8;
-nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, gamma, w_pp);
+nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, w_pp);
 
 % IC - start with steady state
 load("final_values")

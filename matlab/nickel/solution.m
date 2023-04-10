@@ -1,6 +1,7 @@
 % Simulation
-N = 2000;
-M = 100;
+N = 5000;
+M = 500;
+animate = false;
 
 t_max = 5000;
 x_max = 10;
@@ -12,18 +13,17 @@ t = linspace(0, t_max, N);
 % Constants
 Du = 1;
 Dn = 1;
-epsilon = 50;
 alpha = 1;
+epsilon = 50;
 beta = 1;
 lambda = 3;
-gamma = 1;
 voltage = 0;
 
 % PDE's
 %w_pp = @(x)60*x.^2 -30*x - 16;
 w_pp = @(x) 30*x.^2 - 8.8;
 
-nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, gamma, w_pp);
+nickelfunc = @(x, t, u, dudx) expanded_nickelfunc(x, t, u, dudx, Du, Dn, alpha, epsilon, beta, lambda, w_pp);
 
 % IC
 phi_ic = @(x) -voltage*(2*x/(x_max-x_min-(x_max+x_min)/(x_max-x_min))); % Linear line
@@ -49,19 +49,50 @@ psi = sol(:, :, 4);
 figure()
 grid()
 title("Nickel Hydroxide steady state")
-xlabel("x")
-ylim([-1.1, 2.5])
-legend()
 hold on;
 
-for i=1:N
-
-  p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
-  p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
-  p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_e(x)");
-  
-  pause(0.01)
-  delete(p_u)
-  delete(p_n)  
-  delete(p_phi)
+if (animate)
+    for i=1:N
+    
+      p_u = plot(x, u(i, :), Color="black", DisplayName="u(x)");
+      p_phi = plot(x, phi(i, :), Color="green", DisplayName="\phi(x)");
+      p_n = plot(x, n(i, :), Color="blue", LineStyle="--", DisplayName="C_e(x)");
+      
+      pause(0.01)
+      delete(p_u)
+      delete(p_n)  
+      delete(p_phi)
+    end
 end
+
+
+tiledlayout(1,2)
+colororder(["black", "blue"]);
+
+% Left plot
+ax1 = nexttile;
+yyaxis(ax1, 'left')
+plot(ax1, x, u(1,:), LineWidth=1, DisplayName="u(x)")
+ylim(ax1, [-1.1, 1.1])
+grid(ax1, "on")
+
+yyaxis(ax1, 'right')
+plot(ax1, x, n(1, :), LineWidth=1.2, DisplayName = "n(x)", LineStyle="--")
+ylim(ax1, [-0.1, 1.1])
+yticklabels(ax1, [])
+legend(ax1);
+xlabel(ax1, "x");
+
+% Right plot
+ax2 = nexttile;
+yyaxis(ax2, 'left')
+plot(ax2, x, u(end,:), LineWidth=1, DisplayName="u(x)")
+ylim(ax2, [-1.1, 1.1])
+yticklabels(ax2, [])
+grid(ax2, "on")
+
+yyaxis(ax2, 'right')
+plot(ax2, x, n(end, :), LineWidth=1.2, DisplayName = "n(x)", LineStyle="--")
+ylim(ax2, [-0.1, 1.1])
+xlabel("x");
+
