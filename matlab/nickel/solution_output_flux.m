@@ -3,7 +3,7 @@ N = 5000;
 M = 500;
 animate = false;
 
-t_max = 35000;
+t_max = 50000;
 x_max = 10;
 x_min = -10;
 
@@ -77,6 +77,7 @@ if (animate)
 end
 
 
+%{
 tiledlayout(1,2)
 colororder(["black", "blue"]);
 
@@ -106,4 +107,24 @@ yyaxis(ax2, 'right')
 plot(ax2, x, n(end, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
 ylim(ax2, [-0.1, 1.1])
 xlabel("x");
+%}
 
+% space-time plot
+
+u_normalized = (u+1)*0.5;
+u_reversed = flipud(u_normalized);
+figure()
+
+colormap cool
+imagesc(u_reversed)
+
+ax = gca;
+ax.FontSize = 17;
+ylabel("t_{[10^4 s]}", FontSize=25)
+xlabel("x", FontSize=25)
+
+xticks(0:M/10:M)
+xticklabels(-10:2:10)
+ytck = 0:N/5:N;
+yticks(ytck)
+yticklabels((t_max:-t_max/(length(ytck)-1):0)*10^(-4))

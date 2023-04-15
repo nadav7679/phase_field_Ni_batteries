@@ -68,31 +68,41 @@ end
 
 tiledlayout(1,2)
 colororder(["black", "blue"]);
-
+font_size = 25; 
 % Left plot
+
+
 ax1 = nexttile;
+ax1.FontSize = 17;
+
 yyaxis(ax1, 'left')
 plot(ax1, x, u(1,:), LineWidth=2, DisplayName="u(x)")
+ylabel("u(x)", FontSize=font_size)
 ylim(ax1, [-1.1, 1.1])
 grid(ax1, "on")
 
 yyaxis(ax1, 'right')
 plot(ax1, x, n(1, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
+ylabel("n(x)", FontSize=font_size)
 ylim(ax1, [-0.1, 1.1])
-yticklabels(ax1, [])
-legend(ax1);
-xlabel(ax1, "x");
+xlabel(ax1, "x", FontSize=font_size);
+title("A", FontSize=font_size + 5)
 
 % Right plot
 ax2 = nexttile;
+ax2.FontSize = 17;
+
 yyaxis(ax2, 'left')
 plot(ax2, x, u(end,:), LineWidth=2, DisplayName="u(x)")
+ylabel("u(x)", FontSize=font_size)
 ylim(ax2, [-1.1, 1.1])
-yticklabels(ax2, [])
 grid(ax2, "on")
 
 yyaxis(ax2, 'right')
 plot(ax2, x, n(end, :), LineWidth=2.2, DisplayName = "n(x)", LineStyle="--")
+ylabel("n(x)", FontSize=font_size)
 ylim(ax2, [-0.1, 1.1])
-xlabel("x");
+xlabel("x", FontSize=font_size);
+title("B", FontSize=font_size + 5)
+
 
